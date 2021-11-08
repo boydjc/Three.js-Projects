@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		scene.add(axes);
 
 		// create a plane for the ground 
-		var planeGeo = new THREE.PlaneGeometry(50, 50);
+		var planeGeo = new THREE.PlaneGeometry(300, 300);
 		var planeMat = new THREE.MeshLambertMaterial({
 			color: 0x56b00
 		});
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 		var house = new THREE.Mesh(houseGeo, houseMat);
 		house.castShadow = true;
-		house.position.set(15, 6, 0);
+		house.position.set(15, 3, 0);
 		scene.add(house);
 
 		// cone made into a triangle for the house roof
@@ -42,16 +42,16 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		var roof = new THREE.Mesh(roofGeo, roofMat);
 		roof.castShadow = true;
 		roof.rotation.y = 0.8;
-		roof.scale.set(2, 1, 2);
-		roof.position.set(15, 16, 0.2);
+		roof.scale.set(1.8, 0.8, 1.8);
+		roof.position.set(13.5, 13, 1.5);
 		scene.add(roof);
 
 		// add a light source
 		var spotLight = new THREE.SpotLight(0xFFFFFF);
-		spotLight.position.set(-40, 60, -10);
+		spotLight.position.set(-100, 200, -80);
 		spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
-		spotLight.shadow.camera.far = 130;
-		spotLight.shadow.camera.near = 40;
+		spotLight.shadow.camera.far = 300;
+		spotLight.shadow.camera.near = 30;
 		spotLight.castShadow = true;
 		scene.add(spotLight);
 
