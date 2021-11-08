@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		// cone made into a triangle for the house roof
 		var roofGeo = new THREE.CylinderGeometry(0, 5, 8, 4);
 		var roofMat = new THREE.MeshLambertMaterial({
-			color: 0x00FFFF
+			color: 0x5A5A5A
 		});
 
 		var roof = new THREE.Mesh(roofGeo, roofMat);
@@ -46,12 +46,23 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		roof.position.set(13.5, 13, 1.5);
 		scene.add(roof);
 
+		// road towards the house made from a flatten square
+		var roadGeo = new THREE.BoxGeometry(70, 0.5, 5);
+		var roadMat = new THREE.MeshLambertMaterial({
+			color: 0x76552B
+		});
+
+		var road = new THREE.Mesh(roadGeo, roadMat);
+		road.position.set(-24, 0, 0);
+		scene.add(road);
+
 		// add a light source
 		var spotLight = new THREE.SpotLight(0xFFFFFF);
-		spotLight.position.set(-100, 200, -80);
-		spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+		spotLight.position.set(-100, 200, -50);
+		spotLight.shadow.mapSize = new THREE.Vector2(5000, 5000);
 		spotLight.shadow.camera.far = 300;
 		spotLight.shadow.camera.near = 30;
+		spotLight.intensity = 1.4;
 		spotLight.castShadow = true;
 		scene.add(spotLight);
 
