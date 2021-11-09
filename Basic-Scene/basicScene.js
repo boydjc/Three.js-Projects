@@ -93,13 +93,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		}
 
 		// road towards the house made from a flatten square
-		var roadGeo = new THREE.BoxGeometry(70, 0.5, 5);
+		var roadGeo = new THREE.BoxGeometry(7, 0.5, 5);
 		var roadMat = new THREE.MeshLambertMaterial({
 			color: 0x76552B
 		});
 
 		var road = new THREE.Mesh(roadGeo, roadMat);
-		road.position.set(-24, 0, 0);
+		road.position.set(7, 0, 0);
 		scene.add(road);
 
 		// add a light source
