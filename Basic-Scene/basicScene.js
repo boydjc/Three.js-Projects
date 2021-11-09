@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.shadowMap.enabled = true;
 
-		var axes = new THREE.AxesHelper(20);
-		scene.add(axes);
-
 		// create a plane for the ground 
 		var planeGeo = new THREE.PlaneGeometry(300, 300);
 		var planeMat = new THREE.MeshLambertMaterial({
@@ -94,9 +91,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
 				}
 			}
 
-			trees[i][0].position.set(randomX, 4, randomZ);
-			trees[i][1].position.set(randomX, 12, randomZ);
+			trees[i][0].position.set(randomX, 3, randomZ);
+			trees[i][1].position.set(randomX, 11, randomZ);
 
+			// add shadows to the trees
+			trees[i][0].castShadow = true;
+			trees[i][1].castShadow = true;
 			scene.add(trees[i][0]);
 			scene.add(trees[i][1]);
 		}
