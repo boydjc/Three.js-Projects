@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		var scene = new THREE.Scene();
 		var camera = new THREE.PerspectiveCamera(45, window.innerWidth/ window.innerHeight, 0.1, 1000);
 		var renderer = new THREE.WebGLRenderer();
-		renderer.setClearColor(new THREE.Color(0x000000));
+		renderer.setClearColor(new THREE.Color(0x1F8DBA));
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.shadowMap.enabled = true;
 
@@ -49,24 +49,15 @@ document.addEventListener('DOMContentLoaded', function(event) {
 			color: 0x53350A
 		});
 
-		//var treeTrunk = new THREE.Mesh(treeTrunkGeo, treeTrunkMat);
-		//treeTrunk.position.set(0, 4, 0);
-		//scene.add(treeTrunk);
-
 		var treeTopGeo = new THREE.DodecahedronGeometry(4, 3);
 		var treeTopMat = new THREE.MeshLambertMaterial({
 			color: 0x476a30
 		});
 
-		//var treeTop = new THREE.Mesh(treeTopGeo, treeTopMat);
-		//treeTop.position.set(0, 12, 0);
-		//treeTop.scale.set(1, 1.5, 1);
-		//scene.add(treeTop);
-
 		var trees = [];
 
 		// create an array of trees, size them, and position them
-		for(var i=0; i<10; i++) {
+		for(var i=0; i<75; i++) {
 
 			trees[i] = [new THREE.Mesh(treeTrunkGeo, treeTrunkMat),
 						new THREE.Mesh(treeTopGeo, treeTopMat)];
@@ -77,16 +68,16 @@ document.addEventListener('DOMContentLoaded', function(event) {
 			// give all of the trees random positions as long as they do not colide with the coordinates of the house
 			var randomX = 0;
 			var randomZ = 0;
-			while(randomX <= 10 && randomX >= 0) { 
+			while(randomX <= 20 && randomX >= -20) { 
 				randomX = Math.random() * (100 - -100) + -100;
-				if(!(randomX <= 10) && !(randomX >= 0)) {
+				if(!(randomX <= 20) && !(randomX >= -20)) {
 					break;
 				}
 			}
 
-			while(randomZ <= 10 && randomZ >= 0) {
+			while(randomZ <= 20 && randomZ >= -20) {
 				randomZ = Math.random() * (100 - -100) + -100;
-				if(!(randomZ <= 10) && !(randomZ >= 0)){
+				if(!(randomZ <= 20) && !(randomZ >= -20)){
 					break;
 				}
 			}
@@ -122,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		scene.add(spotLight);
 
 		// position and point the camera to the center of the scene
-		camera.position.set(-38, 30, 40);
+		camera.position.set(-70, 40, 50);
 		camera.lookAt(scene.position);
 
 		// add the output of the renderer to the html element
