@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		// a rectangle for the shape of a house
 		var houseGeo = new THREE.BoxGeometry(9, 10, 13);
 		var houseMat = new THREE.MeshLambertMaterial({
-			color: 0xFF0000
+			color: 0xCC0000
 		});
 
 		var house = new THREE.Mesh(houseGeo, houseMat);
@@ -35,6 +35,62 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		var roofMat = new THREE.MeshLambertMaterial({
 			color: 0x5A5A5A
 		});
+
+		var doorGeo = new THREE.BoxGeometry(1, 5, 2.5);
+		var doorMat = new THREE.MeshLambertMaterial({
+			color: 0x5A5A5A
+		});
+
+		var door = new THREE.Mesh(doorGeo, doorMat)
+		door.position.set(10.5, 3, 0);
+		scene.add(door);
+
+		var doorKnobGeo = new THREE.IcosahedronGeometry(0.3, 4);
+		var doorKnobMat = new THREE.MeshLambertMaterial({
+			color: 0xFFFF00
+		});
+
+		var doorKnob = new THREE.Mesh(doorKnobGeo, doorKnobMat);
+		doorKnob.position.set(10, 3, 0.8);
+		scene.add(doorKnob);
+
+		var chimneyGeo = new THREE.BoxGeometry(1.5, 5, 1.5);
+		var chimneyMat = new THREE.MeshLambertMaterial({
+			color: 0x555555
+		});
+
+		var chimney = new THREE.Mesh(chimneyGeo, chimneyMat);
+		chimney.position.set(15, 12, 6);
+		chimney.castShadow = true;
+		scene.add(chimney);
+
+		var windowFrameGeo = new THREE.BoxGeometry(1, 3, 3);
+		var windowFrameMat = new THREE.MeshLambertMaterial({
+			color: 0x5A5A5A
+		});
+
+		var windowPaneGeo = new THREE.BoxGeometry(1, 2, 2);
+		var windowPaneMat = new THREE.MeshLambertMaterial({
+			color: 0x87CEEB
+		});
+
+		var houseWindows = [];
+
+		for(var i=0; i<2; i++) {
+			houseWindows[i] = [new THREE.Mesh(windowFrameGeo, windowFrameMat),
+							   new THREE.Mesh(windowPaneGeo, windowPaneMat)];
+			if(i == 0) {
+				houseWindows[i][0].position.set(10.5, 4, 4);
+				houseWindows[i][1].position.set(10.4, 4, 4);
+			} else {
+				houseWindows[i][0].position.set(10.5, 4, -4);
+				houseWindows[i][1].position.set(10.4, 4, -4);
+			}
+
+			scene.add(houseWindows[i][0]);
+			scene.add(houseWindows[i][1]);
+
+		}
 
 		var roof = new THREE.Mesh(roofGeo, roofMat);
 		roof.castShadow = true;
