@@ -165,34 +165,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		camera.lookAt(scene.position);
 
 		// add the output of the renderer to the html element
-		document.getElementById("webgl-output").appendChild(renderer.domElement);
-
-		// add event listeners to keys for camera control
-		document.addEventListener('keydown', function(event) {
-			if(event.key == "w") {
-				camera.position.y += 1;
-			}
-
-			if(event.key == "s") {
-				camera.position.y -= 1;
-			}
-			
-			if(event.key == "a") {
-				camera.position.x += 1;
-			}
-
-			if(event.key == "d") {
-				camera.position.x -= 1;
-			}
-
-			if(event.key == "z") {
-				camera.position.z += 1;
-			}
-
-			if(event.key == "x") {
-				camera.position.z -= 1;
-			}
-	});	
+		document.getElementById("webgl-output").appendChild(renderer.domElement);	
 
 		var shrinkFlame = false;
 		function renderScene() {
@@ -219,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
 					var starPosZ = Math.random() * (350 - 150) + 150;
 	
 					stars[i].position.set(starPosX, starPosY, starPosZ);
-					console.log("NEW STAR");
 				}else{
 					stars[i].position.set(stars[i].position.x += animationControls.rocketSpeed*3,
 										  stars[i].position.y -= animationControls.rocketSpeed*3,
