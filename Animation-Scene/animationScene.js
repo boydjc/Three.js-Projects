@@ -28,8 +28,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		renderer.setClearColor(new THREE.Color(0x000000));
 		renderer.setSize(window.innerWidth, window.innerHeight);
 
-		var axes = new THREE.AxesHelper(20);
-		scene.add(axes);
+		const STARNUM = 1000;
 
 		// start rocket main body
 
@@ -137,12 +136,32 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	
 		// end rocket details
 
+		// create star
+
+		var starGeo = new THREE.SphereGeometry(1, 27, 32)
+		var starMat = new THREE.MeshLambertMaterial({
+			color: 0xFFFFFF
+		});
+
+		var stars = [];
+
+		for(var i=0; i<STARNUM; i++) {
+			stars[i] = new THREE.Mesh(starGeo, starMat);
+
+			var starPosX = Math.random() * (window.innerWidth - -window.innerWidth) + -window.innerWidth;
+			var starPosY = Math.random() * (window.innerHeight - -window.innerHeight) + -window.innerHeight;
+			var starPosZ = Math.random() * (350 - 150) + 150;
+
+			stars[i].position.set(starPosX, starPosY, starPosZ);
+			scene.add(stars[i]);
+		}
+
 		var spotLight = new THREE.SpotLight(0xFFFFFF);
 		spotLight.position.set(0, 0, -30);
 		scene.add(spotLight);
 
 
-		camera.position.set(0,0,-30);
+		camera.position.set(0,0,-50);
 		camera.lookAt(scene.position);
 
 		// add the output of the renderer to the html element
@@ -191,7 +210,23 @@ document.addEventListener('DOMContentLoaded', function(event) {
 					shrinkFlame = false;
 				}
 			}
+
+			for(var i=0; i<STARNUM; i++) {
+
+				if(stars[i].position.x > window.innerWidth || stars[i].position.y > window.innerHeight) {
+					var starPosX = Math.random() * (window.innerWidth - -window.innerWidth) + -window.innerWidth;
+					var starPosY = Math.random() * (window.innerHeight - -window.innerHeight) + -window.innerHeight;
+					var starPosZ = Math.random() * (350 - 150) + 150;
 	
+					stars[i].position.set(starPosX, starPosY, starPosZ);
+					console.log("NEW STAR");
+				}else{
+					stars[i].position.set(stars[i].position.x += animationControls.rocketSpeed*3,
+										  stars[i].position.y -= animationControls.rocketSpeed*3,
+										  stars[i].position.z);
+				}
+			}
+
 			requestAnimationFrame(renderScene);
 			renderer.render(scene, camera);
 		}
