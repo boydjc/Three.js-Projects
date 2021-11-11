@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	var camera;
 	var scene;
 
+	var animationControls = new function() {
+		this.rocketSpeed = 0.05;
+	}
+
 	// stats to display fps and render rate
 	function initStats() {
 		var stats = new Stats();
@@ -13,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	}
 
 	var stats = initStats();
+	var gui = new dat.GUI();
+	gui.add(animationControls, 'rocketSpeed', 0.05, 0.3);
 
 	function buildScene() {
 		renderer = new THREE.WebGLRenderer();
@@ -175,12 +181,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
 			stats.update();
 
 			if(!shrinkFlame) {
-				rocketFlame.scale.y += 0.4;
+				rocketFlame.scale.y += animationControls.rocketSpeed;
 				if(rocketFlame.scale.y >= 1.6) {
 					shrinkFlame = true;
 				}
 			}else if(shrinkFlame) {
-				rocketFlame.scale.y -= 0.4;
+				rocketFlame.scale.y -= animationControls.rocketSpeed;
 				if(rocketFlame.scale.y <= 0.9) {
 					shrinkFlame = false;
 				}
