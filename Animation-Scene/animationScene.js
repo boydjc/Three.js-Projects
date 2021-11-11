@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		});
 
 		var rocketFlame = new THREE.Mesh(rocketFlameGeo, rocketFlameMat);
-		rocketFlame.position.set(6.5, -6.2, 0);
+		rocketFlame.position.set(5.8, -5.5, 0);
 		rocketFlame.rotation.set(0, 0, -2.3);
 		scene.add(rocketFlame);
 
@@ -169,10 +169,23 @@ document.addEventListener('DOMContentLoaded', function(event) {
 			}
 	});	
 
+		var shrinkFlame = false;
 		function renderScene() {
 
 			stats.update();
-		
+
+			if(!shrinkFlame) {
+				rocketFlame.scale.y += 0.4;
+				if(rocketFlame.scale.y >= 1.6) {
+					shrinkFlame = true;
+				}
+			}else if(shrinkFlame) {
+				rocketFlame.scale.y -= 0.4;
+				if(rocketFlame.scale.y <= 0.9) {
+					shrinkFlame = false;
+				}
+			}
+	
 			requestAnimationFrame(renderScene);
 			renderer.render(scene, camera);
 		}
