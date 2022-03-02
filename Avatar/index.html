@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test Avatar</title>
+		<meta charset="UTF-8">
+		<script src="../../three.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// setting up the scene
+			const scene = new THREE.Scene();
+			scene.background = new THREE.Color(0x3C3A40);
+			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+			const renderer = new THREE.WebGLRenderer({antialias: true});
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+			
+			camera.position.z = 5;
+
+
+			// set the light
+			const light = new THREE.DirectionalLight();
+			light.position.set(0, 0, 1);
+			scene.add(light);
+		
+			// creating the head shape
+			const headShapeRadius = 1;
+			const headShapeWidthSegments = 43;
+			const headShapeHeightSegments = 21;
+			const headShapeGeo = new THREE.SphereGeometry(headShapeRadius, headShapeWidthSegments, headShapeHeightSegments);
+			const skinMaterial = new THREE.MeshPhongMaterial({color: 0xffdbac});
+			const head = new THREE.Mesh(headShapeGeo, skinMaterial);
+			head.scale.y = 1.1;
+
+			head.scale.set(2, 2.2, 2);
+
+			// creating the hair 
+			// the hair will have the same radius, width segments, and height segments as the head shape
+			const hairThetaLength = 1.1;
+			const hairGeo = new THREE.SphereGeometry(headShapeRadius, headShapeWidthSegments,
+													 headShapeWidthSegments, 0, Math.PI * 2, 0, hairThetaLength);
+			const hairMaterial = new THREE.MeshPhongMaterial({color: 0x8d5524});
+			const hair = new THREE.Mesh(hairGeo, hairMaterial);
+			hair.position.y = 0.01;
+			hair.scale.set(2, 2.2, 2);
+
+			// creating the eyebrows
+			const length = 12, width = 8;
+
+			const browGeo = new THREE.TorusGeometry(10, 1, 16, 100, 1.2);
+			const browMat = new THREE.MeshPhongMaterial({color: 0x8d5524});
+
+
+			const leftBrow = new THREE.Mesh(browGeo, browMat);
+
+			leftBrow.scale.set(0.05, 0.05, 0.05);
+			leftBrow.rotation.z = 0.95;
+			leftBrow.position.z = 2;
+			leftBrow.position.x = -0.5;
+
+			const rightBrow = new THREE.Mesh(browGeo, browMat);
+			
+			rightBrow.scale.set(0.05, 0.05, 0.05);
+			rightBrow.rotation.z = 0.95;
+			rightBrow.position.z = 2;
+			rightBrow.position.x = 0.5;
+
+			scene.add(head);
+			scene.add(hair);
+			scene.add(leftBrow);
+			scene.add(rightBrow);
+
+			function animate() {
+				requestAnimationFrame(animate);
+				renderer.render(scene, camera);	
+			}
+
+			animate();
+		</script>
+	</body>
+</html>
