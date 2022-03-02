@@ -51,11 +51,8 @@
 			hair.scale.set(2, 2.2, 2);
 
 			// creating the eyebrows
-			const length = 12, width = 8;
-
 			const browGeo = new THREE.TorusGeometry(10, 1, 16, 100, 1.2);
 			const browMat = new THREE.MeshPhongMaterial({color: 0x8d5524});
-
 
 			const leftBrow = new THREE.Mesh(browGeo, browMat);
 
@@ -71,10 +68,27 @@
 			rightBrow.position.z = 2;
 			rightBrow.position.x = 0.5;
 
+			// create the ears
+			const earGeo = new THREE.CylinderGeometry(5, 5, 2.4, 8, 1, false, 0, 3.1);
+			// ear has skin material defined earlier
+
+			const leftEar = new THREE.Mesh(earGeo, skinMaterial);
+			leftEar.position.x = -1.9;
+			leftEar.rotation.set(1.7, -0.1, 2.7);
+			leftEar.scale.set(0.1, 0.1, 0.1);
+
+			const rightEar = new THREE.Mesh(earGeo, skinMaterial);
+			rightEar.position.x = 1.9;
+			rightEar.scale.set(0.1, 0.1, 0.1);
+			rightEar.rotation.set(1.7, 0, 0);
+
+			// add all of the objects to the scene
 			scene.add(head);
 			scene.add(hair);
 			scene.add(leftBrow);
 			scene.add(rightBrow);
+			scene.add(leftEar);
+			scene.add(rightEar);
 
 			function animate() {
 				requestAnimationFrame(animate);
