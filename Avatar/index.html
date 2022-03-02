@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test Avatar</title>
+		<meta charset="UTF-8">
+		<script src="../../three.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// setting up the scene
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+		
+			// creating the head shape
+			const headShapeRadius = 1;
+			const headShapeWidthSegments = 32;
+			const headShapeHeightSegments = 16;
+			const headShapeGeo = new THREE.SphereGeometry(headShapeRadius, headShapeWidthSegments, headShapeHeightSegments);
+			const skinMaterial = new THREE.MeshBasicMaterial({color: 0xffdbac});
+			const head = new THREE.Mesh(headShapeGeo, skinMaterial);
+			head.scale.y = 1.1;
+
+			// creating the hair 
+			// the hair will have the same radius, width segments, and height segments as the head shape
+			const hairThetaLength = 1.64;
+			const hairGeo = new THREE.SphereGeometry(headShapeRadius, headShapeWidthSegments,
+													 headShapeWidthSegments, 0, Math.PI * 2, 0, hairThetaLength);
+			const hairMaterial = new THREE.MeshBasicMaterial({color: 0xc68642});
+			const hair = new THREE.Mesh(hairGeo, hairMaterial);
+			hair.scale.set(0.98, 0.80, 1);
+			hair.position.y = 0.3;
+			
+			scene.add(head);
+			scene.add(hair);
+
+			camera.position.z = 5;
+
+			function animate() {
+				requestAnimationFrame(animate);
+				renderer.render(scene, camera);
+			}
+
+			animate();
+		</script>
+	</body>
+</html>
